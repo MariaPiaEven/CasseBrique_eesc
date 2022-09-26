@@ -33,8 +33,13 @@ public class CasseBrique extends Canvas {
     public void demarrer() throws InterruptedException {
 
         long indexFrame = 0;
-        int xBalle = 500;
-        int vitesseHorizontalBalle = -2;
+        int xBalle = 250;
+        int yBalle = 250;
+        int vitesseVerticalBalle = -2;
+        int vitesseHorizontalBalle = 3;
+        int diametreBalle = 50;
+        int sBalle = diametreBalle * 30 / 100;
+        int decalageReflet = diametreBalle * 20 / 100;
 
 
         while (true) {
@@ -44,14 +49,34 @@ public class CasseBrique extends Canvas {
 
             //-------------------------------
             //Reset dessin
-            dessin.setColor(Color.WHITE);
+            dessin.setColor(Color.BLACK);
             dessin.fillRect(0, 0, 500, 500);
 
             //-------------------------------
-            //Dessin Ballon
+            //Dessin Balle
             xBalle += vitesseHorizontalBalle;
+            yBalle += vitesseVerticalBalle;
             dessin.setColor(Color.MAGENTA);
-            dessin.fillOval(xBalle, 250, 30, 30);
+            dessin.fillOval(xBalle, yBalle, diametreBalle, diametreBalle);
+
+            //Dessin Petite Balle
+            dessin.setColor(Color.white);
+            dessin.fillOval(
+                    xBalle + decalageReflet,
+                    yBalle + decalageReflet,
+                    sBalle,
+                    sBalle);
+
+            //Mouvement balle
+            if (xBalle < 0 || xBalle > 500 - diametreBalle) {
+                vitesseHorizontalBalle *= -1;
+                //vitesseHorizontalBalle = vitesseHorizontalBalle * -1
+            }
+
+            if (yBalle < 0 || yBalle > 500 - diametreBalle) {
+                vitesseVerticalBalle *= -1;
+
+            }
 
             //-------------------------------
             dessin.dispose();
