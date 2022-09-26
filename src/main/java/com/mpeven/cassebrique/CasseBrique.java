@@ -47,10 +47,14 @@ public class CasseBrique extends Canvas {
 
             //-------------------------------
             //Dessin com.mpeven.cassebrique.Balle
-            balle.setX(balle.getX() + balle.getVitesseHorizontal());
-            balle.setY(balle.getY() + balle.getVitesseVertical());
+            balle.deplacer();
+
             dessin.setColor(balle.getCouleur());
-            dessin.fillOval(balle.getX(), balle.getY(), balle.getDiametre(), balle.getDiametre());
+            dessin.fillOval(
+                    balle.getX(),
+                    balle.getY(),
+                    balle.getDiametre(),
+                    balle.getDiametre());
 
             //Dessin Petite com.mpeven.cassebrique.Balle
             dessin.setColor(Color.white);
@@ -62,14 +66,13 @@ public class CasseBrique extends Canvas {
 
             //Mouvement balle
             if (balle.getX() < 0 || balle.getX() > 500 - balle.getDiametre()) {
-                balle.setVitesseHorizontal(balle.getVitesseHorizontal() * -1);
+                balle.inverseVitesseHorizontal();
                 //vitesseHorizontalBalle = vitesseHorizontalBalle * -1
             }
 
             if (balle.getY() < 0 || balle.getY() > 500 - balle.getDiametre()) {
-                balle.setVitesseVertical(balle.getVitesseVertical() * -1);
-
-            }
+                 balle.inverseVitesseVertical();
+           }
 
             //-------------------------------
             dessin.dispose();
