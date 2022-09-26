@@ -2,6 +2,7 @@ package com.mpeven.cassebrique;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 
 public class CasseBrique extends Canvas {
 
@@ -13,8 +14,8 @@ public class CasseBrique extends Canvas {
         //On récupère le panneau de la fenetre principale
         JPanel panneau = (JPanel) fenetre.getContentPane();
         //On définie la hauteur / largeur de l'écran
-        panneau.setPreferredSize(new Dimension(500, 500));
-        setBounds(0, 0, 500, 500);
+        panneau.setPreferredSize(new Dimension(largeurEcran, hauteurEcran));
+        setBounds(0, 0, largeurEcran, hauteurEcran);
         //On ajoute cette classe (qui hérite de Canvas) comme composant du panneau principal
         panneau.add(this);
 
@@ -36,8 +37,22 @@ public class CasseBrique extends Canvas {
     public void demarrer() throws InterruptedException {
 
         long indexFrame = 0;
+        ArrayList<Balle> listeBalles = new ArrayList<>();
 
-        Balle balle = new Balle(250, 250, 4, -6, 30, Color.magenta);
+        for (int i = 0; i < 100; i++) {
+
+            Balle balle1 = new Balle(
+                    (int) (Math.random() * largeurEcran),
+                    (int) (Math.random() * hauteurEcran),
+                    (int) (Math.random() * 5) + 2,
+                    (int) (Math.random() * 5) + 2,
+                    (int) (Math.random() * 25) + 5,
+                    new Color((float)Math.random(),(float)Math.random(),(float)Math.random())
+
+            );
+
+            listeBalles.add(balle1);
+        }
 
         while (true) {
             indexFrame++;
@@ -47,22 +62,20 @@ public class CasseBrique extends Canvas {
             //-------------------------------
             //Reset dessin
             dessin.setColor(Color.BLACK);
-            dessin.fillRect(0, 0, 500, 500);
+            dessin.fillRect(0, 0, largeurEcran, hauteurEcran);
 
             //-------------------------------
-            //Dessin balle
-            balle.deplacer();
-            balle.dessiner(dessin);
 
-            //Mouvement balle
-            if (balle.getX() < 0 || balle.getX() > 500 - balle.getDiametre()) {
-                balle.inverseVitesseHorizontal();
-                //vitesseHorizontalBalle = vitesseHorizontalBalle * -1
+            for (Balle balle : listeBalles) {
+
+
+                //Dessin balle
+                balle.deplacer();
+                balle.dessiner(dessin);
+
+                //Mouvement balle
+                balle.testCollision(largeurEcran, hauteurEcran);
             }
-
-            if (balle.getY() < 0 || balle.getY() > 500 - balle.getDiametre()) {
-                 balle.inverseVitesseVertical();
-           }
 
             //-------------------------------
             dessin.dispose();

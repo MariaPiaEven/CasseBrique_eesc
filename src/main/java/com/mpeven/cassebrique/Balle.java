@@ -36,6 +36,18 @@ public class Balle {
         vitesseHorizontal *= -1;
     }
 
+    public void testCollision(int largeurEcran, int hauteurEcran){
+
+        if (x < 0 || x > largeurEcran - diametre) {
+            inverseVitesseHorizontal();
+            //vitesseHorizontalBalle = vitesseHorizontalBalle * -1
+        }
+
+        if (y < 0 || y > hauteurEcran - diametre) {
+            inverseVitesseVertical();
+        }
+    }
+
     public void dessiner(Graphics2D dessin) {
         dessin.setColor(couleur);
         dessin.fillOval(x, y,diametre,diametre);
