@@ -37,6 +37,7 @@ public class CasseBrique extends Canvas {
     public void demarrer() throws InterruptedException {
 
         long indexFrame = 0;
+
         ArrayList<Balle> listeBalles = new ArrayList<>();
 
         for (int i = 0; i < 100; i++) {
@@ -47,7 +48,10 @@ public class CasseBrique extends Canvas {
                     (int) (Math.random() * 5) + 2,
                     (int) (Math.random() * 5) + 2,
                     (int) (Math.random() * 25) + 5,
-                    new Color((float)Math.random(),(float)Math.random(),(float)Math.random())
+                    new Color(
+                            (float) Math.random(),
+                            (float) Math.random(),
+                            (float) Math.random())
 
             );
 

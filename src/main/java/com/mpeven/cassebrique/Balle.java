@@ -1,6 +1,7 @@
 package com.mpeven.cassebrique;
 
 import java.awt.*;
+import java.util.ArrayList;
 
 public class Balle {
 
@@ -13,11 +14,16 @@ public class Balle {
     protected int decalageReflet;
     protected Color couleur;
 
+    protected ArrayList<Balle> listePoints = new ArrayList<>();
+
+    protected long indexFrame = 0;
+
+
     public Balle(int x, int y, int vitesseHorizontal, int vitesseVertical, int diametre, Color couleur) {
         this.x = x;
         this.y = y;
-        this.vitesseHorizontal = vitesseHorizontal;
-        this.vitesseVertical = vitesseVertical;
+        this.vitesseHorizontal = vitesseHorizontal; //== 0 ? 1 : vitesseHorizontal;
+        this.vitesseVertical = vitesseVertical; //== 0 ? 1 : vitesseVertical;
         this.couleur = couleur;
         this.setDiametre(diametre);
     }
@@ -36,7 +42,7 @@ public class Balle {
         vitesseHorizontal *= -1;
     }
 
-    public void testCollision(int largeurEcran, int hauteurEcran){
+    public void testCollision(int largeurEcran, int hauteurEcran) {
 
         if (x < 0 || x > largeurEcran - diametre) {
             inverseVitesseHorizontal();
@@ -49,12 +55,29 @@ public class Balle {
     }
 
     public void dessiner(Graphics2D dessin) {
+
+        indexFrame++;
+        if (indexFrame % 10 == 0) {
+
+
+            //TODO ajout nouveau point
+        }
+
         dessin.setColor(couleur);
-        dessin.fillOval(x, y,diametre,diametre);
+        dessin.fillOval(x, y, diametre, diametre);
         dessin.setColor(Color.white);
         dessin.fillOval(
                 x + decalageReflet,
                 y + decalageReflet,
+                diametreReflet,
+                diametreReflet);
+
+        //TODO dessiner tous les points de cette balle
+
+        dessin.setColor(Color.white);
+        dessin.fillOval(
+                x,
+                y,
                 diametreReflet,
                 diametreReflet);
     }
