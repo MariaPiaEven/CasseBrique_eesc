@@ -23,17 +23,28 @@ public class Balle {
     }
 
     //methode
-    public void deplacer(){
+    public void deplacer() {
         x += vitesseHorizontal;
         y += vitesseVertical;
     }
 
-    public void inverseVitesseVertical(){
+    public void inverseVitesseVertical() {
         vitesseVertical *= -1;
     }
 
-    public void inverseVitesseHorizontal(){
+    public void inverseVitesseHorizontal() {
         vitesseHorizontal *= -1;
+    }
+
+    public void dessiner(Graphics2D dessin) {
+        dessin.setColor(couleur);
+        dessin.fillOval(x, y,diametre,diametre);
+        dessin.setColor(Color.white);
+        dessin.fillOval(
+                x + decalageReflet,
+                y + decalageReflet,
+                diametreReflet,
+                diametreReflet);
     }
 
     public int getX() {
