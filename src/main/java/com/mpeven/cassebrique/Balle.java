@@ -17,7 +17,7 @@ public class Balle {
     protected ArrayList<Balle> listePoints = new ArrayList<>();
 
     protected long indexFrame = 0;
-
+    protected int indexPoint = 0;
 
     public Balle(int x, int y, int vitesseHorizontal, int vitesseVertical, int diametre, Color couleur) {
         this.x = x;
@@ -27,6 +27,14 @@ public class Balle {
         this.couleur = couleur;
         this.setDiametre(diametre);
     }
+
+    public Balle(int x, int y) {
+        this.x = x;
+        this.y = y;
+        this.couleur = Color.WHITE;
+        this.setDiametre(5);
+    }
+
 
     //methode
     public void deplacer() {
@@ -57,11 +65,30 @@ public class Balle {
     public void dessiner(Graphics2D dessin) {
 
         indexFrame++;
-        if (indexFrame % 10 == 0) {
 
+        if (indexFrame % 10 == 0 && vitesseVertical != 0 && vitesseHorizontal != 0) {
+            if (indexFrame <= 100) {
+                listePoints.add(new Balle(x, y));
+            }
 
-            //TODO ajout nouveau point
+            if (indexFrame >= 100){
+                listePoints.get((int)((indexFrame / 10) % 10)).setX(x);
+                listePoints.get((int)((indexFrame / 10) % 10)).setY(y);
+
+            }
+
+//            if (indexFrame < 100) {
+//                listePoints.add(new Balle(x, y));
+//            } else {
+//                listePoints.get(indexPoint).setX(x);
+//                listePoints.get(indexPoint).setY(y);
+//                indexPoint ++;
+//                if(indexPoint == 9){
+//                    indexPoint = 0;
+//                }
+//            }
         }
+
 
         dessin.setColor(couleur);
         dessin.fillOval(x, y, diametre, diametre);
@@ -72,14 +99,13 @@ public class Balle {
                 diametreReflet,
                 diametreReflet);
 
-        //TODO dessiner tous les points de cette balle
+        for (Balle balle : listePoints) {
 
-        dessin.setColor(Color.white);
-        dessin.fillOval(
-                x,
-                y,
-                diametreReflet,
-                diametreReflet);
+            balle.dessiner(dessin);
+
+        }
+
+
     }
 
     public int getX() {
